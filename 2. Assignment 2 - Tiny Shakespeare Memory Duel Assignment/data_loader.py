@@ -5,9 +5,9 @@ import numpy as np
 
 def load_and_prepare(
     zip_path,
-    data_fraction = 0.25,
-    train_ratio = 0.90,
-    seed = 42,
+    data_fraction=0.25,
+    train_ratio=0.90,
+    seed=42,
 ):
     np.random.seed(seed)
 
@@ -21,7 +21,7 @@ def load_and_prepare(
 
     train_split_idx = int(len(encoded) * train_ratio)
     train_data = encoded[:train_split_idx]
-    val_data   = encoded[train_split_idx:]
+    val_data = encoded[train_split_idx:]
 
     return dict(
         train_data=train_data,
@@ -45,7 +45,7 @@ def decode(indices, idx2char):
 def make_batches(data, seq_length):
     n = len(data)
     for i in range(0, n - seq_length, seq_length):
-        inputs  = data[i: i + seq_length].tolist()
+        inputs = data[i: i + seq_length].tolist()
         targets = data[i + 1: i + seq_length + 1].tolist()
         yield inputs, targets
 
@@ -64,9 +64,9 @@ def _read_zip(zip_path):
 
 
 def _build_vocab(text):
-    chars   = sorted(set(text))
-    char2idx = {c, c in enumerate(chars)}
-    idx2char = {i, c in enumerate(chars)}
+    chars = sorted(set(text))
+    char2idx = {c: i for i, c in enumerate(chars)}
+    idx2char = {i: c for i, c in enumerate(chars)}
     return char2idx, idx2char
 
 
